@@ -17,7 +17,6 @@
 
 
 
-
 5. Buttons for rock, paper, scissors for player1 and player2, start game button, submit comment button for chat.
 6. Logic to allow only 2 players playing at a time.
 7. For rock, paper, scissors buttons use them to choose rock, paper, or scissors. Use buttons for all events and no anchor tags.
