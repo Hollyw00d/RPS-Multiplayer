@@ -1,14 +1,20 @@
 $(document).ready(function() {
-  // Get HTML elements using jQuery
-  $player1StartGame = $('#player1StartGame');
-  $player1Email = $('#player1Email');
-  $player1Password = $('#player1Password');
+  // Get player 1 Elements using jQuery
+  var $player1StartGame = $('#player1StartGame');
+  var $player1Name = $('#player1Name');
+  var $player1NameInput = $('#player1NameInput');
+  var $player1Email = $('#player1Email');
+  var $player1Password = $('#player1Password');
+  
+  // Get player 2 Elements using jQuery
+  var $player2StartGame = $('#player2StartGame');
+  var $player2Name = $('#player2Name');
+  var $player2NameInput = $('#player1NameInput');
+  var $player2Email = $('#player2Email');
+  var $player2Password = $('#player2Password');
 
-  $player2StartGame = $('#player2StartGame');
-  $player2Email = $('#player2Email');
-  $player2Password = $('#player2Password');
-
-  // Get player1 
+  // Get player 1 and player 2 in array
+  var playersArr = [];
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -26,22 +32,48 @@ $(document).ready(function() {
   var database = firebase.database();
   var auth = firebase.auth();
 
-  $player1StartGame.on('click', function() {    
-    var email = $player1Email.val().toString().trim();
-    var pass = $player1Password.val();
-    var promiseForEmailPassword = auth.createUserWithEmailAndPassword(email, pass)
-      .then(function(user) {
+  $player1StartGame.on('click', function() {   
 
+    var name1 = $player1NameInput.val().toString().trim();
+    var email1 = $player1Email.val().toString().trim();
+    var pass1 = $player1Password.val();
+
+    var promiseForEmailPassword = auth.createUserWithEmailAndPassword(email1, pass1)
+      .then(function () {
+        user = firebase.auth().currentUser;
+        user.sendEmailVerification();
+      })
+      .then(function () {
+        user.updateProfile({
+          displayName: name1
+        });
+      })
+      .catch(function(error) {
+        console.log(error.message);
       });
-  
+
     promiseForEmailPassword.catch(function(error) {
       console.log(error.message);
     });
+
+    auth.onAuthStateChanged(function(user) {
+      if(user) {
+        console.log(user.displayName);
+      }
+      else {
+        console.log('not logged in');
+      }
+    });
+
+    $player1NameInput.val('');
+    $player1Email.val('');
+    $player1Password.val('');
   });
 
-  firebase.auth().onAuthStateChanged(function(firebaseUser) {
-    if(firebaseUser) {
-      console.log(firebaseUser);
+  auth.onAuthStateChanged(function(user) {
+    if(user) {
+      console.log(user.displayName);
+      console.log(playersArr);
     }
     else {
       console.log('not logged in');
