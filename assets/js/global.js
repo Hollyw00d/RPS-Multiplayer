@@ -65,16 +65,10 @@ $(document).ready(function() {
 
 
     player1.set({
-      name: name1,
-      id: 12
+      name: name1
     });
 
-    player1.on("child_added", function(snapshot) {
-      var player1Data = snapshot.val();
-      console.log(player1Data);
-      console.log('Blah');
-      $player1Name.text(player1Data);
-    });
+
 
 
     // var promiseForEmailPassword = auth.createUserWithEmailAndPassword(email1, pass1)
@@ -115,6 +109,11 @@ $(document).ready(function() {
   //     console.log('not logged in');
   //   }
   // });
+
+  database.ref().on("child_added", function(snapshot) {
+    var player1Name = snapshot.val().player1.name;
+    $player1Name.text(player1Name);
+  });
   
   
 });
