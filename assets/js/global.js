@@ -74,6 +74,8 @@ $(document).ready(function() {
       $player1Name.text(player1Name);
     });
 
+  });
+
   database.ref().on("child_added", function(snapshot) {
     var player1Name = snapshot.val().player1.name;
     $player1Name.text(player1Name);
