@@ -69,46 +69,10 @@ $(document).ready(function() {
     });
 
 
-
-
-    // var promiseForEmailPassword = auth.createUserWithEmailAndPassword(email1, pass1)
-    //   .then(function () {
-    //     user = firebase.auth().currentUser;
-    //     user.sendEmailVerification();
-    //   })
-    //   .then(function () {
-    //     user.updateProfile({
-    //       displayName: name1
-    //     });
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error.message);
-    //   });
-
-    // promiseForEmailPassword.catch(function(error) {
-    //   console.log(error.message);
-    // });
-
-    // auth.onAuthStateChanged(function(user) {
-    //   if(user) {
-    //     console.log(user.displayName);
-    //   }
-    //   else {
-    //     console.log('not logged in');
-    //   }
-    // });
-
-  });
-
-  // auth.onAuthStateChanged(function(user) {
-  //   if(user) {
-  //     console.log(user.displayName);
-  //     console.log(playersArr);
-  //   }
-  //   else {
-  //     console.log('not logged in');
-  //   }
-  // });
+    database.ref().on("child_added", function(snapshot) {
+      var player1Name = snapshot.val().player1.name;
+      $player1Name.text(player1Name);
+    });
 
   database.ref().on("child_added", function(snapshot) {
     var player1Name = snapshot.val().player1.name;
