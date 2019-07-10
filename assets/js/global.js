@@ -31,6 +31,9 @@ $(document).ready(function() {
   var players = database.ref('/players');
   var player1 = database.ref('/players/player1');
   var player2 = database.ref('/players/player2');
+
+  var player1NameRef = database.ref('players/player1/name');
+  var player2NameRef = database.ref('players/player2/name');
   
   function startGame() {
     gameState.set('true');
@@ -49,8 +52,7 @@ $(document).ready(function() {
   }
   
   function updatePlayer1Name() {
-    var player1NameRef = database.ref('players/player1/name');
-
+  
     player1NameRef.on("value", function(snapshot) {
       $player1Name.text(snapshot.val());
     });
@@ -61,8 +63,7 @@ $(document).ready(function() {
   }
 
   function updatePlayer2Name() {
-    var player2NameRef = database.ref('players/player2/name');
-
+    
     player2NameRef.on("value", function(snapshot) {
       $player2Name.text(snapshot.val());
     });
