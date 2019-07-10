@@ -10,7 +10,7 @@ $(document).ready(function() {
   // Get player 2 Elements using jQuery
   var $player2StartGame = $('#player2StartGame');
   var $player2Name = $('#player2Name');
-  var $player2NameInput = $('#player1NameInput');
+  var $player2NameInput = $('#player2NameInput');
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -26,7 +26,6 @@ $(document).ready(function() {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
-  var auth = firebase.auth();
 
   var gameState = database.ref('/gameState');
   var players = database.ref('/players');
@@ -36,17 +35,17 @@ $(document).ready(function() {
   function startGame() {
     gameState.set('true');
 
-    var state = gameState.once("value").then(function (snapshot) {
-      console.log (snapshot.val()); 
-      if (snapshot.val() === false) {    
-        console.log ("game is off"); 
-      }  
+    // var state = gameState.once("value").then(function (snapshot) {
+    //   console.log (snapshot.val()); 
+    //   if (snapshot.val() === false) {    
+    //     console.log ("game is off"); 
+    //   }  
       
-      else {
-        $messages.removeClass('d-none');
-        console.log ("game is on"); 
-      }
-    }) 
+    //   else {
+    //     $messages.removeClass('d-none');
+    //     console.log ("game is on"); 
+    //   }
+    // }) 
   }
   
   function updatePlayer1Name() {
@@ -55,6 +54,22 @@ $(document).ready(function() {
     player1NameRef.on("value", function(snapshot) {
       $player1Name.text(snapshot.val());
     });
+
+    if(player1NameRef) {
+      $messages.removeClass('d-none');
+    }
+  }
+
+  function updatePlayer2Name() {
+    var player2NameRef = database.ref('players/player2/name');
+
+    player2NameRef.on("value", function(snapshot) {
+      $player2Name.text(snapshot.val());
+    });
+
+    if(player2NameRef) {
+      $messages.removeClass('d-none');
+    }
   }
 
 
@@ -62,20 +77,43 @@ $(document).ready(function() {
 
     var name1 = $player1NameInput.val().toString().trim();
 
-    startGame();
-    
-    $player1NameInput.val('');
-
-
-    player1.set({
-      name: name1
-    });
-
-
-    updatePlayer1Name();
+    if(name1 !== '') {
+      startGame();
+      
+      $player1NameInput.val('');
+  
+      player1.set({
+        name: name1
+      });
+  
+      updatePlayer1Name();
+    }
 
   });
 
+  $player2StartGame.on('click', function() {   
+
+    var name2 = $player2NameInput.val().toString().trim();
+
+    console.log(name2);
+
+    if(name2 !== '') {
+      startGame();
+      
+      $player2NameInput.val('');
+  
+      player2.set({
+        name: name2
+      });
+  
+      updatePlayer2Name();
+    }
+
+  });
+
+
+
   updatePlayer1Name();
+  updatePlayer2Name();
   
 });
