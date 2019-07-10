@@ -27,28 +27,27 @@ $(document).ready(function() {
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
 
-  var gameState = database.ref('/gameState');
-  var players = database.ref('/players');
-  var player1 = database.ref('/players/player1');
-  var player2 = database.ref('/players/player2');
+  var gameState = database.ref('gameState');
+  // var players = database.ref('/players');
+ 
+  var player1 = database.ref('players/player1');
+  var player2 = database.ref('players/player2');
 
   var player1NameRef = database.ref('players/player1/name');
   var player2NameRef = database.ref('players/player2/name');
+
+  var player1Wins = database.ref('players/player1/wins');
+  var player1Loses = database.ref('players/player1/loses');
+  var player1Ties = database.ref('players/player1/ties');
+  var player1CurrentRPS = database.ref('players/player1/currentRPS');
+
+  var player2Wins = database.ref('players/player2/wins');
+  var player2Loses = database.ref('players/player2/loses');
+  var player2Ties = database.ref('players/player2/ties');
+  var player2CurrentRPS = database.ref('players/player2/currentRPS');
   
   function startGame() {
     gameState.set('true');
-
-    // var state = gameState.once("value").then(function (snapshot) {
-    //   console.log (snapshot.val()); 
-    //   if (snapshot.val() === false) {    
-    //     console.log ("game is off"); 
-    //   }  
-      
-    //   else {
-    //     $messages.removeClass('d-none');
-    //     console.log ("game is on"); 
-    //   }
-    // }) 
   }
   
   function updatePlayer1Name() {
