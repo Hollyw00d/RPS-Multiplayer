@@ -39,21 +39,24 @@ $(document).ready(function() {
     var state = gameState.once("value").then(function (snapshot) {
       console.log (snapshot.val()); 
       if (snapshot.val() === false) {    
-        // pop start modal
-        // supress join modal
         console.log ("game is off"); 
       }  
       
       else {
-        // hide start modal
         $messages.removeClass('d-none');
         console.log ("game is on"); 
       }
     }) 
-	   $("#p1chatSection").hide(); 
-    $("#p2chatSection").hide();
   }
   
+
+  function updatePlayer1Name() {
+    database.ref().on("child_added", function(snapshot) {
+      var player1Name = snapshot.val().player1.name;
+      $player1Name.text(player1Name);
+    });
+  }
+
 
   $player1StartGame.on('click', function() {   
 
@@ -69,22 +72,11 @@ $(document).ready(function() {
     });
 
 
-    database.ref().on("child_added", function(snapshot) {
-      var player1Name = snapshot.val().player1.name;
-      $player1Name.text(player1Name);
-    });
+    updatePlayer1Name();
 
   });
 
-  database.ref().on("child_added", function(snapshot) {
-    var player1Name = snapshot.val().player1.name;
-    $player1Name.text(player1Name);
-  });
+  updatePlayer1Name();
   
   
 });
-
-
-
-
-  
