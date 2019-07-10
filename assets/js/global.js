@@ -49,11 +49,11 @@ $(document).ready(function() {
     }) 
   }
   
-
   function updatePlayer1Name() {
-    database.ref().on("child_added", function(snapshot) {
-      var player1Name = snapshot.val().player1.name;
-      $player1Name.text(player1Name);
+    var player1NameRef = database.ref('players/player1/name');
+
+    player1NameRef.on("value", function(snapshot) {
+      $player1Name.text(snapshot.val());
     });
   }
 
@@ -77,6 +77,5 @@ $(document).ready(function() {
   });
 
   updatePlayer1Name();
-  
   
 });
