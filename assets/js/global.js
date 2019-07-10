@@ -6,11 +6,15 @@ $(document).ready(function() {
   var $player1StartGame = $('#player1StartGame');
   var $player1Name = $('#player1Name');
   var $player1NameInput = $('#player1NameInput');
+  var $player1Container = $('#player1-container');
+  var $player1RpsBtn = $('.player1Btn');
 
   // Get player 2 Elements using jQuery
   var $player2StartGame = $('#player2StartGame');
   var $player2Name = $('#player2Name');
   var $player2NameInput = $('#player2NameInput');
+  var $player2Container = $('#player2-container');
+  var $player2RpsBtn = $('.player2Btn');
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -111,6 +115,13 @@ $(document).ready(function() {
 
   });
 
+  $player1Container.on('click', '.player1Btn', function() {
+    player1CurrentRPS.set($(this).val());
+  });  
+
+  $player2Container.on('click', '.player2Btn', function() {
+    player2CurrentRPS.set($(this).val());
+  });  
 
 
   updatePlayer1Name();
