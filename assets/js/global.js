@@ -8,6 +8,7 @@ $(document).ready(function() {
   var $player1NameInput = $('#player1NameInput');
   var $player1Container = $('#player1-container');
   var $player1RpsBtn = $('.player1Btn');
+  var $player1Msg = $('#player1Msg');
 
   // Get player 2 Elements using jQuery
   var $player2StartGame = $('#player2StartGame');
@@ -15,6 +16,7 @@ $(document).ready(function() {
   var $player2NameInput = $('#player2NameInput');
   var $player2Container = $('#player2-container');
   var $player2RpsBtn = $('.player2Btn');
+  var $player2Msg = $('#player2Msg');
 
   // Game elements using jQuery
   $gameResult = $('#game-result');
@@ -40,6 +42,7 @@ $(document).ready(function() {
  
   var player1 = database.ref('players/player1');
   var player2 = database.ref('players/player2');
+  var players = database.ref('players');
 
   var player1NameRef = database.ref('players/player1/name');
   var player2NameRef = database.ref('players/player2/name');
@@ -117,15 +120,39 @@ $(document).ready(function() {
   });
 
   $player1Container.on('click', '.player1Btn', function() {
-    player1CurrentRPS.set($(this).val());
+    player1.update({
+      currentRPS: null
+    });
+    player1.update({
+      currentRPS: $(this).val()
+    });
+    
+    players.on("value", function(snapshot) {
+
+      var player1CurrentRPSNum = Number(snapshot.val().player1.currentRPS);
+      var player2CurrentRPSNum = Number(snapshot.val().player2.currentRPS);
+      console.log(player1CurrentRPSNum);
+      console.log(player2CurrentRPSNum);
+    });
+    
   });  
 
   $player2Container.on('click', '.player2Btn', function() {
-    player2CurrentRPS.set($(this).val());
+
+    players.on("value", function(snapshot) {
+      player1CurrentRPS = Number(snapshot.val().player1.currentRPS);
+      player2CurrentRPS = Number(snapshot.val().player2.currentRPS);
+      
+      console.log(player1CurrentRPS);
+      console.log(player2CurrentRPS);
+    });    
   });  
 
 
   updatePlayer1Name();
   updatePlayer2Name();
+
+  player1CurrentRPS.set(null);
+  player2CurrentRPS.set(null);
   
 });
