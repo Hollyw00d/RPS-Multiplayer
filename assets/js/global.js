@@ -16,6 +16,10 @@ $(document).ready(function() {
   var $player2Container = $('#player2-container');
   var $player2RpsBtn = $('.player2Btn');
 
+  // Game elements using jQuery
+  $gameResult = $('#game-result');
+  $gameResultMsg = $('#game-result-msg');
+
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDQ2RB_vJkGuIjbQwfPlHC-sKc9qC1A1Uo",
@@ -76,7 +80,6 @@ $(document).ready(function() {
     }
   }
 
-
   $player1StartGame.on('click', function() {   
 
     var name1 = $player1NameInput.val().toString().trim();
@@ -98,8 +101,6 @@ $(document).ready(function() {
   $player2StartGame.on('click', function() {   
 
     var name2 = $player2NameInput.val().toString().trim();
-
-    console.log(name2);
 
     if(name2 !== '') {
       startGame();
