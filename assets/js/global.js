@@ -38,7 +38,6 @@ $(document).ready(function() {
   var database = firebase.database();
 
   var gameState = database.ref('gameState');
-  // var players = database.ref('/players');
  
   var player1 = database.ref('players/player1');
   var player2 = database.ref('players/player2');
@@ -48,13 +47,19 @@ $(document).ready(function() {
   var player2NameRef = database.ref('players/player2/name');
 
   var player1Wins = database.ref('players/player1/wins');
+  var player1WinsCount = 0;
   var player1Loses = database.ref('players/player1/loses');
+  var player1LosesCount = 0;
   var player1Ties = database.ref('players/player1/ties');
+  var player1TiesCount = 0;
   var player1CurrentRPS = database.ref('players/player1/currentRPS');
 
   var player2Wins = database.ref('players/player2/wins');
+  var player1WinsCount = 0;
   var player2Loses = database.ref('players/player2/loses');
+  var player1LosesCount = 0;
   var player2Ties = database.ref('players/player2/ties');
+  var player2TiesCount = 0;
   var player2CurrentRPS = database.ref('players/player2/currentRPS');
   
   function startGame() {
@@ -127,26 +132,40 @@ $(document).ready(function() {
       currentRPS: $(this).val()
     });
     
-    players.on("value", function(snapshot) {
-
-      var player1CurrentRPSNum = Number(snapshot.val().player1.currentRPS);
-      var player2CurrentRPSNum = Number(snapshot.val().player2.currentRPS);
-      console.log(player1CurrentRPSNum);
-      console.log(player2CurrentRPSNum);
-    });
-    
   });  
 
   $player2Container.on('click', '.player2Btn', function() {
+    player2.update({
+      currentRPS: null
+    });
+
+    player2.update({
+      currentRPS: $(this).val()
+    });
 
     players.on("value", function(snapshot) {
-      player1CurrentRPS = Number(snapshot.val().player1.currentRPS);
-      player2CurrentRPS = Number(snapshot.val().player2.currentRPS);
-      
-      console.log(player1CurrentRPS);
-      console.log(player2CurrentRPS);
-    });    
+
+      var player1CurrentRPSNum = snapshot.val().player1.currentRPS;
+      var player2CurrentRPSNum = snapshot.val().player2.currentRPS;
+
+      if(player1CurrentRPSNum === player2CurrentRPSNum) {
+        player1TiesCount++;
+        $player1Msg.text('You tie!');
+        $player2Msg.text('You tie!');
+        console.log('Player 1 Ties:' + player1TiesCount);
+      }
+      else if(player1CurrentRPSNum === 'paper' && player2CurrentRPSNum === 'rock') {
+        $player1Msg.text('You Win!');
+        $player2Msg.text('You Lose!');
+      }
+      else if(player1CurrentRPSNum === 'scissors' && player2CurrentRPSNum === 'rock') {
+        $player1Msg.text('You Lose!');
+        $player2Msg.text('You Win!');
+      }
+    });   
   });  
+
+
 
 
   updatePlayer1Name();
