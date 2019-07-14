@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock, Paper, Scissors Game Using Firebase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Rock, Paper, Scissors Game Using Firebase <span id="messages" class="font-italic d-none"><br />Game Started</span></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 playerContainer" id="player1-container">
+                <h2 id="player1Name">Player 1</h2>
+                <h3 id="player1Msg"></h3>
+                <p>
+                    <button id="player1Rock" class="player1Btn btn btn-success" value="rock">Rock<i class="far fa-hand-rock pl-3"></i></button>
+                </p>
+                <p>
+                    <button class="player1Btn btn btn-success" id="player1Paper" value="paper">Paper<i class="far fa-hand-paper pl-3"></i></button>
+                </p>
+                <p>
+                    <button class="player1Btn btn btn-success" id="player1Scissors" value="scissors">Scissors<i class="far fa-hand-scissors pl-3"></i></button>
+                </p>
+                <p>
+                    <input type="text" placeholder="Your name (nicknames OK)" id="player1NameInput" class="w-100 mb-2"><br />
+                    <input type="text" placeholder="Email" id="player1Email" class="w-100 mb-2"><br />
+                    <input type="password" placeholder="Password" id="player1Password" class="w-100 mb-2"><br />
+                    <button class="btn btn-dark" id="player1StartGame">Player 1 Sign In to Start Game</button><br />
+                    <button class="btn btn-dark d-none" id="player1Submit">Submit Choice</button><br />
+                    <button id="player1QuitGame" class="btn btn-dark">Quit Game</button>
+                </p>
+            </div>
+            <div class="col-md-4" id="game-result">
+                <h2>Result</h2>
+                <p id="game-result-msg"></p>
+            </div>
+            <div class="col-md-4 playerContainer" id="player2-container">
+                <h2 id="player2Name">Player 2</h2>
+                <h3 id="player2Msg"></h3>
+                <p>
+                    <button id="player2Rock" class="player2Btn btn btn-success" value="rock">Rock<i class="far fa-hand-rock pl-3"></i></button>
+                </p>
+                <p>
+                    <button class="player2Btn btn btn-success" id="player2Paper" value="paper">Paper<i class="far fa-hand-paper pl-3"></i></button>
+                </p>
+                <p>
+                    <button class="player2Btn btn btn-success" id="player2Scissors" value="scissors">Scissors<i class="far fa-hand-scissors pl-3"></i></button>
+                </p>
+                <p>
+                    <input type="text" placeholder="Your name (nicknames OK)" id="player2NameInput" class="w-100 mb-2"><br />
+                    <input type="text" placeholder="Email" id="player2Email" class="w-100 mb-2"><br />
+                    <input type="password" placeholder="Password" id="player2Password" class="w-100 mb-2"><br />
+                    <button class="btn btn-dark" id="player2StartGame">Player 2 Sign In to Start Game</button><br />
+                    <button class="btn btn-dark d-none" id="player2Submit">Submit Choice</button><br />
+                    <button id="player2QuitGame" class="btn btn-dark">Quit Game</button>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <h2>Chat</h2>
+                <div id="chat-box"></div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="assets/js/global.js"></script>
+</body>
+</html>

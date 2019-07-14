@@ -1,11 +1,20 @@
+# Train Scheduler
+## Failed at Rock, Paper, Scissors Multiplayer so instead did train scheduler.
+
+---
+
 # RPS-Multiplayer
 ## Rock, Paper, Scissors Multiplayer Game using Firebase
 
 ### Psuedo Coding
 1. Create HTML and CSS.
+
+
 2. Create Firebase DB and make it secure.
 3. Do a little Firebase DB test an onclick and incrementing.
+
 4. Start JavaScript by creating variables for HTML selectors using jQuery, player1, player2, database for Firebase, chatData, playerData for choosing rock paper, or scissors, player1Wins, player1Losses, player2Wins, player2Losses, player1Name, player2Name.
+
 5. Buttons for rock, paper, scissors for player1 and player2, start game button, submit comment button for chat.
 6. Logic to allow only 2 players playing at a time.
 7. For rock, paper, scissors buttons use them to choose rock, paper, or scissors. Use buttons for all events and no anchor tags.
@@ -39,8 +48,8 @@ $("#chat-send").click(function() {
     });
 
     $("#chat-input").val("");
-  }
-});
+    }
+  });
 11. Pulling from chatData object in DB and appending to chat window.
 12. Use snapshot, including snapshot.child() to show objects in DB.
 13. Checkout Firebase docs.
